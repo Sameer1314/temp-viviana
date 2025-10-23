@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useProducts } from '../ProductContext';
-import ProductModal from '../components/ProductModel';
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useProducts } from "../ProductContext";
+import ProductModal from "../components/ProductModel";
 
 const Bestsellers = () => {
   const { products, loading } = useProducts();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   if (loading) return <p className="p-4">Loading...</p>;
+  if (!Array.isArray(products)) {
+    return <p className="p-4 text-red-600">Failed to load products.</p>;
+  }
 
   const featured = products.slice(0, 8); // First 8 products
 
@@ -26,8 +29,14 @@ const Bestsellers = () => {
 
       {/* Title */}
       <div className="text-center relative z-10">
-        <p className="text-[#596980] text-lg uppercase font-Montserrat">Premium Quality</p>
-        <img src="assets/bg_elements/line1.png" className="mx-auto my-2 w-32 md:w-96" alt="Line" />
+        <p className="text-[#596980] text-lg uppercase font-Montserrat">
+          Premium Quality
+        </p>
+        <img
+          src="assets/bg_elements/line1.png"
+          className="mx-auto my-2 w-32 md:w-96"
+          alt="Line"
+        />
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-roxborough text-[#5b0058] font-bold">
           Our Bestsellers
         </h2>
@@ -38,8 +47,8 @@ const Bestsellers = () => {
         <Swiper
           modules={[Navigation]}
           navigation={{
-            nextEl: '.button-next',
-            prevEl: '.button-prev',
+            nextEl: ".button-next",
+            prevEl: ".button-prev",
           }}
           loop={true}
           spaceBetween={20}
@@ -61,12 +70,14 @@ const Bestsellers = () => {
                 src={
                   product.images?.length > 0
                     ? `http://localhost:5000${product.images[0]}`
-                    : 'https://via.placeholder.com/300x300?text=No+Image'
+                    : "https://via.placeholder.com/300x300?text=No+Image"
                 }
                 className="w-full h-96 object-cover rounded-lg"
                 alt={product.name}
               />
-              <h3 className="text-lg font-bold mt-4 text-[#a22311]">{product.name}</h3>
+              <h3 className="text-lg font-bold mt-4 text-[#a22311]">
+                {product.name}
+              </h3>
               {/* You can remove this if `price` is not available */}
               {/* <p className="text-sm text-gray-600">{product.price}</p> */}
               <button className="button-1 mt-2 w-30">View</button>
