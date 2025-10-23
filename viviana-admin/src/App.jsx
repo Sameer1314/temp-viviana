@@ -10,8 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./pages/Signup";
-import Login from "./pages/login";
-
+import Login from "./pages/Login";
 
 const App = () => {
   const location = useLocation();
@@ -20,27 +19,66 @@ const App = () => {
 
   return (
     <div className="flex">
-       <Toaster position="top-right" />
+      <Toaster position="top-right" />
       {!shouldHideSidebar && <Sidebar />}
       <div className="flex-grow p-4">
-
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
 
           {/* ✅ Protected routes */}
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/products" element={<PrivateRoute><ProductList /></PrivateRoute>} />
-          <Route path="/products/new" element={<PrivateRoute><ProductForm /></PrivateRoute>} />
-          <Route path="/products/:id/edit" element={<PrivateRoute><ProductForm /></PrivateRoute>} />
-          <Route path="/products/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
-          <Route path="/categories" element={<PrivateRoute><CategoryManager /></PrivateRoute>} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <PrivateRoute>
+                <ProductList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/products/new"
+            element={
+              <PrivateRoute>
+                <ProductForm />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/products/:id/edit"
+            element={
+              <PrivateRoute>
+                <ProductForm />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/products/:id"
+            element={
+              <PrivateRoute>
+                <ProductDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <PrivateRoute>
+                <CategoryManager />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="*" element={<div>404 Not Found</div>} />
         </Routes>
-
-
       </div>
     </div>
   );
