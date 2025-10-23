@@ -1,12 +1,6 @@
-// viviana-admin/src/App.jsx
+//viviana-admin/src/App.jsx
 import React from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-  BrowserRouter,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Sidebar from "./components/layout/Sidebar";
 import ProductList from "./components/products/ProductList";
@@ -18,8 +12,9 @@ import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import { BrowserRouter } from "react-router-dom";
 
-const AppContent = () => {
+const App = () => {
   const location = useLocation();
   const hideSidebarRoutes = ["/login", "/signup"];
   const shouldHideSidebar = hideSidebarRoutes.includes(location.pathname);
@@ -88,14 +83,6 @@ const AppContent = () => {
         </Routes>
       </div>
     </div>
-  );
-};
-
-const App = () => {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
   );
 };
 
